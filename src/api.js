@@ -1,7 +1,7 @@
 // API.js
 
-const BASE_URL = "http://localhost:5000/api/cars";
-const APPOINTMENTS_URL = "http://localhost:5000/api/appointments";
+const BASE_URL = (`${import.meta.env.VITE_API_URL}/cars`)
+const APPOINTMENTS_URL = (`${import.meta.env.VITE_API_URL}/appointments`)
 
 // Função para buscar a lista de carros
 export const fetchCars = async () => {
