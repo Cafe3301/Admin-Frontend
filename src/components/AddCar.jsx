@@ -5,8 +5,8 @@ const AddCar = ({ onCarAdded }) => {
   const [name, setName] = useState("");
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
-  const userName = localStorage.getItem('userName'); // Captura o nome do usuário do localStorage
-  const userCPF = localStorage.getItem('userCPF'); // Captura o CPF do usuário do localStorage
+  const [userName, setUserName] = useState(localStorage.getItem('userName') || ""); // Usar estado para o username
+  const [userCPF, setUserCPF] = useState(localStorage.getItem('userCPF') || ""); // Usar estado para o CPF
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,18 +15,18 @@ const AddCar = ({ onCarAdded }) => {
       name,
       model,
       year,
-      status: "Aguardando", // status inicial
-      username: userName, // Adicionando username
-      cpf: userCPF, // Adicionando cpf
+      status: "Aguardando", 
+      username: userName,
+      cpf: userCPF, 
     };
 
     try {
       await addCar(carData);
-      // Limpa os campos do formulário
       setName("");
       setModel("");
       setYear("");
-      // Chama a função para atualizar a lista de carros
+      setUserName(localStorage.getItem('userName') || ""); 
+      setUserCPF(localStorage.getItem('userCPF') || "");
       if (onCarAdded) {
         onCarAdded();
       }
@@ -56,6 +56,20 @@ const AddCar = ({ onCarAdded }) => {
         placeholder="Year"
         value={year}
         onChange={(e) => setYear(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="CPF"
+        value={userCPF}
+        onChange={(e) => setUserCPF(e.target.value)} 
+        required
+      />
+      <input
+        type="text"
+        placeholder="UserName"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)} 
         required
       />
       <button type="submit">Add Car</button>

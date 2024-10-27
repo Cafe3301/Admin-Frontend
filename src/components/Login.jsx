@@ -13,7 +13,7 @@ const Login = () => {
         try {
 
                         
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, { //CONFIGURAR DOTENV AQUI
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, {
                
                 username,
                 password,
