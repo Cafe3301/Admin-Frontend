@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddCar from './components/AddCar';
 import CarList from './components/CarList';
-import Login from './components/Login'; // Certifique-se de importar o Login
+import Login from './components/Login'; 
 import './index.css';
 
 const App = () => {

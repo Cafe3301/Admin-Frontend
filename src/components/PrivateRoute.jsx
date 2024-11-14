@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth'; // Supondo que você tenha um hook de autenticação
+import { useAuth } from '../hooks/useAuth'; 
 
 const PrivateRoute = ({ children }) => {
-    const { isAuthenticated } = useAuth(); // Verifique se o usuário está autenticado
+    const { isAuthenticated } = useAuth(); 
 
     return isAuthenticated ? children : <Navigate to="/login" />;
 };

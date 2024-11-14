@@ -5,7 +5,7 @@ import './CarList.css';
 const CarList = () => {
   const [cars, setCars] = useState([]);
   const [appointments, setAppointments] = useState([]);
-  const [showAppointments, setShowAppointments] = useState(false); 
+  const [showAppointments, setShowAppointments] = useState(false);
 
   const getCars = async () => {
     try {
@@ -57,10 +57,12 @@ const CarList = () => {
 
   const handleDeleteAppointment = async (appointmentId) => {
     try {
-      await deleteAppointment(appointmentId);
-      setAppointments((prevAppointments) => 
-        prevAppointments.filter((appointment) => appointment._id !== appointmentId)
-      );
+      const response = await deleteAppointment(appointmentId); 
+      if (response.ok) { 
+        setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment._id !== appointmentId));
+      } else {
+        console.error("Erro ao excluir o agendamento:", response);
+      }
     } catch (error) {
       console.error("Failed to delete appointment:", error);
     }
@@ -88,8 +90,8 @@ const CarList = () => {
                 <div key={appointment._id} className="appointment-item">
                   <p>Usuário: {appointment.userName}</p>
                   <p>CPF: {appointment.userCPF}</p>
-                  <p>Telefone: {appointment.userPhone}</p> {/* Adicionado */}
-                  <p>Email: {appointment.userEmail}</p> {/* Adicionado */}
+                  <p>Telefone: {appointment.userPhone}</p>
+                  <p>Email: {appointment.userEmail}</p>
                   <p>Carro ID: {appointment.carId ? appointment.carId.toString() : "N/A"}</p>
                   <p>Data do Agendamento: {new Date(appointment.appointmentDate).toLocaleString()}</p>
                   <p>Status: {appointment.status}</p>

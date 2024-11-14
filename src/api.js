@@ -1,16 +1,12 @@
-// API.js
+const BASE_URL = `${import.meta.env.VITE_API_URL}/cars`;
+const APPOINTMENTS_URL = `${import.meta.env.VITE_API_URL}/appointments`;
 
-const BASE_URL = (`${import.meta.env.VITE_API_URL}/cars`)
-const APPOINTMENTS_URL = (`${import.meta.env.VITE_API_URL}/appointments`)
-
-// Função para buscar a lista de carros
 export const fetchCars = async () => {
   const response = await fetch(BASE_URL);
   if (!response.ok) throw new Error("Failed to fetch cars");
   return await response.json();
 };
 
-// Função para adicionar um carro
 export const addCar = async (carData) => {
   const response = await fetch(BASE_URL, {
     method: "POST",
@@ -24,7 +20,6 @@ export const addCar = async (carData) => {
   return await response.json();
 };
 
-// Função para atualizar o status de um carro
 export const updateCarStatus = async (carId, newStatus) => {
   const response = await fetch(`${BASE_URL}/${carId}/status`, {
     method: "PATCH",
@@ -38,7 +33,6 @@ export const updateCarStatus = async (carId, newStatus) => {
   return await response.json();
 };
 
-// Função para deletar um carro
 export const deleteCar = async (carId) => {
   const response = await fetch(`${BASE_URL}/${carId}`, {
     method: "DELETE",
@@ -47,18 +41,22 @@ export const deleteCar = async (carId) => {
   if (!response.ok) throw new Error("Failed to delete car");
 };
 
-// Função para buscar a lista de agendamentos
 export const fetchAppointments = async () => {
   const response = await fetch(APPOINTMENTS_URL);
   if (!response.ok) throw new Error("Failed to fetch appointments");
   return await response.json();
 };
 
-// Função para deletar um agendamento
 export const deleteAppointment = async (appointmentId) => {
-  const response = await fetch(`${APPOINTMENTS_URL}/${appointmentId}`, {
-    method: "DELETE",
-  });
+  try {
+    const response = await fetch(`${APPOINTMENTS_URL}/${appointmentId}`, {
+      method: 'DELETE',
+    });
 
-  if (!response.ok) throw new Error("Failed to delete appointment");
+    if (!response.ok) throw new Error('Falha ao excluir o agendamento.');
+    return response;
+  } catch (error) {
+    console.error("Erro ao excluir o agendamento:", error);
+    throw new Error("Erro na requisição de exclusão.");
+  }
 };

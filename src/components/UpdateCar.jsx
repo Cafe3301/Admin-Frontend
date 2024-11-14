@@ -12,7 +12,7 @@ const UpdateCar = ({ car, onUpdate }) => {
         try {
             const updatedCar = await updateCar(car._id, { name, status });
             console.log('Carro atualizado:', updatedCar);
-            onUpdate(updatedCar); // Notifica o pai sobre a atualização
+            onUpdate(updatedCar); 
         } catch (error) {
             setError('Erro ao atualizar carro');
             console.error(error);
